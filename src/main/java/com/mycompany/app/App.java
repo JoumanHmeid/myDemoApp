@@ -1,28 +1,19 @@
 package com.mycompany.app;
+
+import static spark.Spark.get;
+import static spark.Spark.port;
+import static spark.Spark.post;
+
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * 
-The repository must satisfy the following criteria:
-It must contain an App.java file which has a simple static method implementation:
-The method should accept at least 4 parameters.
-At least two of these parameters must be
-Integer [ ] or
-ArrayList<Integer>.
-The method should perform a meaningful computation on the set of strings and return a result.
- *
- */
+import spark.ModelAndView;
+import spark.template.mustache.MustacheTemplateEngine;
 
-
-//take a lsit of integers, a string, and then from the other side take a single intteger and a single character 
-//and check the frequency of occurrences of the single int and char 
-
-
-public class App 
+public class App
 {
-
- public static String search(ArrayList<Integer> array, String str, int e, char c) {
+public static String search(ArrayList<Integer> array, String str, int e, char c) {
 
         System.out.println("inside search");
         if (array == null) return "null integer list";
@@ -50,15 +41,45 @@ public class App
       }
 
 
-public static void main(String[] args) {
-    ArrayList<Integer> numbers = new ArrayList<Integer>();
-    numbers.add(1);numbers.add(2);numbers.add(3);numbers.add(4);numbers.add(5);
-    numbers.add(1);numbers.add(2);numbers.add(3);numbers.add(1);
-    String text = "Hello World!";
-    int numberToSearch = 1;
-    char charToSearch = 'o';
+    public static void main(String[] args) {
+        port(getHerokuAssignedPort());
 
-    String result = search(numbers, text, numberToSearch, charToSearch);
-    System.out.println(result);
-}
+        get("/", (req, res) -> "Hello, World");
+
+        post("/compute", (req, res) -> {
+            String input1 = req.queryParams("input1");
+            String input2 = req.queryParams("input2");
+            String input3 = req.queryParams("input3");
+            String input4 = req.queryParams("input4");
+
+            java.util.ArrayList<Integer> inputList = new java.util.ArrayList<>();
+            String[] inputs = input1.split(",");
+            for (String input : inputs) {
+                inputList.add(Integer.parseInt(input.trim()));
+            }
+
+            char inputChar = input3.charAt(0);
+
+            String result = App.search(inputList, input2, Integer.parseInt(input4), inputChar);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("result", result);
+            return new ModelAndView(map, "compute.mustache");
+        }, new MustacheTemplateEngine());
+
+
+        get("/compute", (rq, rs) -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("result", "not computed yet!");
+            return new ModelAndView(map, "compute.mustache");
+        }, new MustacheTemplateEngine());
+    }
+
+    static int getHerokuAssignedPort() {
+        ProcessBuilder processBuilder = new ProcessBuilder();
+        if (processBuilder.environment().get("PORT") != null) {
+            return Integer.parseInt(processBuilder.environment().get("PORT"));
+        }
+        return 4567; // return default port if heroku-port isn't set (i.e. on localhost)
+    }
 }

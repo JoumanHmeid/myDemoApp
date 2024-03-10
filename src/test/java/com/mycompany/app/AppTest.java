@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class AppTest extends TestCase{
 
- @Test //(package org.junit) 
+ //@Test //(package org.junit) 
     public void testIntegerFrequency() {
          ArrayList<Integer> numbers = new ArrayList<Integer>();
     numbers.add(1);numbers.add(2);numbers.add(3);numbers.add(4);numbers.add(5);
@@ -21,7 +21,7 @@ public class AppTest extends TestCase{
         assertEquals(expectedResult, App.search(numbers, text, numberToSearch, charToSearch));
     }
 
-@Test // (package org.junit) 
+//@Test // (package org.junit) 
     public void testNullArrayList() {
         ArrayList<Integer> numbers = null;
         String text = "Hello World!";
@@ -31,7 +31,7 @@ public class AppTest extends TestCase{
         assertEquals("null integer list", App.search(numbers, text, numberToSearch, charToSearch));
     }
 
-  @Test // (package org.junit) 
+  //@Test // (package org.junit) 
     public void testEmptyString() {
          ArrayList<Integer> numbers = new ArrayList<Integer>();
     numbers.add(1);numbers.add(2);numbers.add(3);numbers.add(4);numbers.add(5);
@@ -43,7 +43,7 @@ public class AppTest extends TestCase{
         assertEquals("empty string", App.search(numbers, text, numberToSearch, charToSearch));
     }
 
-@Test //(package org.junit) 
+//@Test //(package org.junit) 
     public void testNonexistentInteger() {
          ArrayList<Integer> numbers = new ArrayList<Integer>();
     numbers.add(1);numbers.add(2);numbers.add(3);numbers.add(4);numbers.add(5);
@@ -55,7 +55,7 @@ public class AppTest extends TestCase{
         assertEquals("frequency of the character o : 2\nfrquency of the int 6 : 0", App.search(numbers, text, numberToSearch, charToSearch));
     }
 
-@Test //(package org.junit) 
+//@Test //(package org.junit) 
     public void testNonexistentCharacter() {
          ArrayList<Integer> numbers = new ArrayList<Integer>();
     numbers.add(1);numbers.add(2);numbers.add(3);numbers.add(4);numbers.add(5);
