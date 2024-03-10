@@ -9,3 +9,5 @@ It loops through the ArrayList array and counts the occurrences of the integer e
 It converts the string str to lowercase to make the character comparison case-insensitive.
 It loops through the characters of the string str and counts the occurrences of the character c.
 It returns a string that contains the frequencies of the integer e and the character c.
+
+https://app.travis-ci.com/JoumanHmeid/myDemoApp.svg?token=EosXBUarUcZgKPNZeSdX&branch=main
